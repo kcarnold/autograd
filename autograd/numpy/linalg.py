@@ -19,7 +19,7 @@ det.defgrad(  lambda ans, x    : lambda g : g * ans * inv(x).T)
 solve.defgrad(lambda ans, a, b : lambda g : -dot(atleast_2d_col(solve(a.T, g)),
                                                  atleast_2d_col(ans).T))
 solve.defgrad(lambda ans, a, b : lambda g : solve(a.T, g), argnum=1)
-norm.defgrad( lambda ans, a    : lambda g : dot(g, a/ans))
+norm.defgrad( lambda ans, a    : lambda g : dot(g, a/ans) if ans != 0. else 0. * a)
 
 def make_grad_eigh(ans, x, UPLO='L'):
     """Gradient for eigenvalues and vectors of a symmetric matrix."""
