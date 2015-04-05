@@ -59,7 +59,7 @@ def make_grad_norm(ans, x, ord=None, axis=None):
             return expand(g / ans) * x
         else:
             # see https://en.wikipedia.org/wiki/Norm_(mathematics)#p-norm
-            return expand(g / ans**(ord-1)) * x * anp.abs(x)**(ord-2)
+            return expand(g / ans**(ord-1)) * x * anp.abs(x)**(ord-2) if ans else 0. * x
     return norm_grad
 norm.defgrad(make_grad_norm)
 
