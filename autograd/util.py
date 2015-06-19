@@ -33,7 +33,7 @@ def unary_nd(f, x, eps=EPS):
             nd_grad = np.array(np.zeros(x.shape), dtype=np.gpu_float32)
         else:
             nd_grad = np.zeros(x.shape)
-        for dims in it.product(*list(map(range, x.shape))):
+        for dims in it.product(*map(range, x.shape)):
             nd_grad[dims] = unary_nd(indexed_function(f, x, dims), x[dims])
         return nd_grad
     elif isinstance(x, tuple):
